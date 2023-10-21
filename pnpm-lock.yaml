@@ -69,12 +69,18 @@ importers:
       papaparse:
         specifier: ^5.4.1
         version: 5.4.1
+      prismjs:
+        specifier: ^1.29.0
+        version: 1.29.0
       react:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      react-simple-code-editor:
+        specifier: ^0.13.1
+        version: 0.13.1(react-dom@18.2.0)(react@18.2.0)
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
@@ -8686,6 +8692,11 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
+  /prismjs@1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
+    dev: false
+
   /process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
     dev: true
@@ -8948,6 +8959,16 @@ packages:
     resolution: {integrity: sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /react-simple-code-editor@0.13.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-XYeVwRZwgyKtjNIYcAEgg2FaQcCZwhbarnkJIV20U2wkCU9q/CPFBo8nRXrK4GXUz3AvbqZFsZRrpUTkqqEYyQ==}
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /react@17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}

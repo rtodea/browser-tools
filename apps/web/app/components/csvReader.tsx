@@ -1,17 +1,13 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import Papa from "papaparse";
 
-export const useCsvInput = () => {
+export const useCsvInput = (setTableData) => {
   // State to store parsed data
   const [parsedData, setParsedData] = useState([]);
 
-  //State to store table Column name
-  const [tableRows, setTableRows] = useState([]);
-
   //State to store the values
-  const [tableValues, setTableValues] = useState([]);
 
   const onChange = (event) => {
     // Passing file data (event.target.files[0]) to parse using Papa.parse
@@ -32,28 +28,24 @@ export const useCsvInput = () => {
         setParsedData(results.data);
 
         // Filtered Column Names
-        setTableRows(rowsArray[0]);
-
-        // Filtered Values
-        setTableValues(valuesArray);
+        setTableData({ headers: rowsArray[0], values: valuesArray });
       },
     });
   };
 
-
   return {
     onChange,
-    tableRows,
-    tableValues,
-  }
-}
+  };
+};
 
-export const CsvInput = ({onChange}) => {
-  return <input
-    type="file"
-    name="file"
-    onChange={onChange}
-    accept=".csv"
-    style={{display: "block", margin: "10px auto"}}
-  />
-}
+export const CsvInput = ({ onChange }) => {
+  return (
+    <input
+      type="file"
+      name="file"
+      onChange={onChange}
+      accept=".csv"
+      style={{ display: "block", margin: "10px auto" }}
+    />
+  );
+};

@@ -1,24 +1,26 @@
-"use client"
+"use client";
 
-export const TableViewer = ({tableRows, tableValues}) => {
-  return <table>
-    <thead>
-    <tr>
-      {tableRows.map((rows, index) => {
-        return <th key={index}>{rows}</th>;
-      })}
-    </tr>
-    </thead>
-    <tbody>
-    {tableValues.map((value, index) => {
-      return (
-        <tr key={index}>
-          {value.map((val, i) => {
-            return <td key={i}>{val}</td>;
+export const TableViewer = ({ headers, values }) => {
+  return (
+    <table>
+      <thead>
+        <tr>
+          {headers.map((header, index) => {
+            return <th key={index}>{header}</th>;
           })}
         </tr>
-      );
-    })}
-    </tbody>
-  </table>
-}
+      </thead>
+      <tbody>
+        {values.map((value, index) => {
+          return (
+            <tr key={index}>
+              {value.map((val, i) => {
+                return <td key={i}>{val}</td>;
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
