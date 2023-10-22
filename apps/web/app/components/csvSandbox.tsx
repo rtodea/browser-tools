@@ -33,33 +33,28 @@ export const CsvSandbox = () => {
   const runSteps = () => {
     const steps = JSON.parse(code);
     console.log("steps: ", steps);
-    steps.forEach((step) => {
+    const processedData = steps.reduce((prevData, step) => {
       if (step.type === "rename_column_header") {
-        setFinalTableData((prevFinalData) => {
-          const prevData = prevFinalData ?? tableData;
-          const newHeaders = [...prevData.headers];
-          newHeaders[step.column_to_rename] = step.new_name;
-          return {
-            headers: newHeaders,
-            values: prevData.values,
-          };
-        });
+        const newHeaders = [...prevData.headers];
+        newHeaders[step.column_to_rename] = step.new_name;
+        return {
+          headers: newHeaders,
+          values: prevData.values,
+        };
       } else if (step.type === "remove_column") {
-        setFinalTableData((prevFinalData) => {
-          const prevData = prevFinalData ?? tableData;
-          const newHeaders = prevData.headers.filter(
-            (header, index) => index !== step.column_to_remove
-          );
-          const newValues = prevData.values.map((row) =>
-            row.filter((value, index) => index !== step.column_to_remove)
-          );
-          return {
-            headers: newHeaders,
-            values: newValues,
-          };
-        });
+        const newHeaders = prevData.headers.filter(
+          (header, index) => index !== step.column_to_remove
+        );
+        const newValues = prevData.values.map((row) =>
+          row.filter((value, index) => index !== step.column_to_remove)
+        );
+        return {
+          headers: newHeaders,
+          values: newValues,
+        };
       }
-    });
+    }, tableData);
+    setFinalTableData(processedData);
   };
 
   return (
