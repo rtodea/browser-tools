@@ -17,24 +17,46 @@ export const CsvSandbox = () => {
   const [code, setCode] = useState(
     `[
     {
-        "type": "rename_column",
+        "type": "rename_column_header",
         "column_to_rename": 0,
         "new_name": "lala"
+    },
+    {
+        "type": "remove_column",
+        "column_to_remove": 1
     }
 ]`
   );
+  console.log({ tableData });
+  console.log({ finalTableData });
 
   const runSteps = () => {
     const steps = JSON.parse(code);
     console.log("steps: ", steps);
     steps.forEach((step) => {
-      if (step.type === "rename_column") {
-        const prevData = finalTableData ?? tableData;
-        const newHeaders = [...prevData.headers];
-        newHeaders[step.column_to_rename] = step.new_name;
-        setFinalTableData({
-          headers: newHeaders,
-          values: prevData.values,
+      if (step.type === "rename_column_header") {
+        setFinalTableData((prevFinalData) => {
+          const prevData = prevFinalData ?? tableData;
+          const newHeaders = [...prevData.headers];
+          newHeaders[step.column_to_rename] = step.new_name;
+          return {
+            headers: newHeaders,
+            values: prevData.values,
+          };
+        });
+      } else if (step.type === "remove_column") {
+        setFinalTableData((prevFinalData) => {
+          const prevData = prevFinalData ?? tableData;
+          const newHeaders = prevData.headers.filter(
+            (header, index) => index !== step.column_to_remove
+          );
+          const newValues = prevData.values.map((row) =>
+            row.filter((value, index) => index !== step.column_to_remove)
+          );
+          return {
+            headers: newHeaders,
+            values: newValues,
+          };
         });
       }
     });
